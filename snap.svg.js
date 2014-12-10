@@ -4752,6 +4752,7 @@ Snap.plugin(function (Snap, Element, Paper, glob, Fragment) {
             return this.selectAll("stop");
         }
         function GaddStop(color, offset) {
+            console.log(offset);
             var stop = $("stop"),
                 attr = {
                     offset: +offset + "%"
@@ -4821,6 +4822,7 @@ Snap.plugin(function (Snap, Element, Paper, glob, Fragment) {
             return el;
         }
         function gradientLinear(defs, x1, y1, x2, y2) {
+            console.log(defs);
             var el = Snap._.make("linearGradient", defs);
             el.stops = Gstops;
             el.addStop = GaddStop;
