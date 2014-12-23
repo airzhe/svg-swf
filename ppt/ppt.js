@@ -48,7 +48,7 @@
     var frame = {
         //svg
         '1': function(){
-              var _self = shape[1] = {};
+              var _self = shape[FRAME] = {};
               _self.title = svg.text(512,400,'SVG').attr({
                     'font-size':180,
                     'text-anchor':'middle',
@@ -63,7 +63,7 @@
         },
         //简介
         '2': function(){
-               var _self = shape[2] = {};
+               var _self = shape[FRAME] = {};
                _self.title = svg.text(0,0,'SVG简介').attr(titleAttr);
                var ul = ['• 使用xml描述的矢量文件','• W3C标准(1.1) (http://www.w3.org/TR/SVG11/)','• 浏览器支持情况(http://caniuse.com/#cats=SVG)'];
                _self.ul = svg.text(0,0,ul).attr(ulAttr).attr({
@@ -80,7 +80,7 @@
         },
         //案例
         '3':function(){
-            var _self = shape[2];
+            var _self = shape[FRAME-1];
             _self.h2 = svg.text(0,0,'案例').attr(h2Attr).attr({
                 transform:'matrix(1,0,0,1,100,440)'
             });
@@ -96,7 +96,7 @@
         },
         //使用方式
         '4':function(){
-            var _self = shape[4] = {};
+            var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'使用方式').attr(titleAttr);
             var ul = ['• 浏览器直接打开','• 在HTML中使用<img>标签引用','• 直接在HTML中使用SVG标签','• 作为CSS背景'];
             _self.ul = svg.text(0,0,ul).attr(ulAttr).attr({
@@ -109,7 +109,7 @@
         },
         //基本图像和属性
         '5':function(){
-            var _self = shape[5] = {};
+            var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'基本图像和属性').attr(titleAttr);
             _self.oh2 = svg.text(0,0,'基本图形').attr(h2Attr).attr({
                 transform:'matrix(1,0,0,1,100,160)'
@@ -148,23 +148,26 @@
         },
         // line
         '6':function(){
-            var _self = shape[6] = {};
-            _self.title = svg.text(0,0,'线段(line)').attr(titleAttr);
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'线段').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ line').attr(h2Attr);
-            _self.line = svg.line(0,0,300,0).attr({
+            var  line = svg.line(20,100,280,100).attr({
                 'stroke':"#000",
-                'stroke-width':1,
-                'transform':'matrix(1,0,0,1,100,200)'
+                'stroke-width':1
             });
-            _self.line1 = svg.line(0,0,300,200).attr({
+             _self.quadratic = svg.g(bgGridding(300,200),line).attr({
+                  'transform':'matrix(1,0,0,1,80,200)'
+             })
+            var line1 = svg.line(10,10,280,200).attr({
                 'stroke':"l(1,0,1,1)rgba(255,0,0,1)-rgba(89,220,16,.6)",
                 'stroke-width':5,
                 'stroke-dasharray':'20 10',
                 'stroke-opacity':.8,
-                'stroke-linecap':'round',
-                'transform':'matrix(1,0,0,1,100,440)'
+                'stroke-linecap':'round'
             });
-
+            _self.line1 = svg.g(bgGridding(300,250),line1).attr({
+                 'transform':'matrix(1,0,0,1,80,440)'
+             })
             var lineDiv = document.createElement('div');
             lineDiv.id = 'line'
 
@@ -172,7 +175,7 @@
             div1.className = 'line_code';
             // div1.innerHTML =
             var html1 = '<svg xmlns="http://www.w3.org/2000/svg">\n\
-    <line x1="0"  y1="0" x2="400"  y2="0" stroke="#000"/>\n\
+    <line x1="20"  y1="100" x2="2800"  y2="100" stroke="#000"/>\n\
 </svg>';
             html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
             div1.innerHTML = html1_encode;
@@ -191,7 +194,7 @@
             <stop offset="100%" stop-color="rgba(89,220,16,.6)"/>\n\
         </linearGradient>\n\
     </defs>\n\
-    <line x1="0"  y1="0" x2="400"  y2="400" stroke="url(#myLinearGradient1)" stroke-width="5" troke-dasharray="20 10" stroke-linecap="round"/>\n\
+    <line x1="10"  y1="10" x2="280"  y2="200" stroke="url(#myLinearGradient1)" stroke-width="5" troke-dasharray="20 10" stroke-linecap="round"/>\n\
 </svg>';
             html2_encode = '<pre>' + fun.htmlencode(html2) + '</pre>';
             div2.innerHTML = html2_encode;
@@ -200,7 +203,7 @@
         },
         //矩形
         '7':function(){
-            var _self = shape[7] = {};
+            var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'矩形').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ rect').attr(h2Attr);
             _self.rect = svg.rect(0,0,180,100).attr({
@@ -269,7 +272,7 @@
         },
         //圆
         '8':function(){
-            var _self = shape[8] = {};
+            var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'圆').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ circle').attr(h2Attr);
             _self.circle = svg.circle(0,0,100).attr({
@@ -313,7 +316,7 @@
         },
         //椭圆
         '9':function(){
-            var _self = shape[9] = {};
+            var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'椭圆').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ ellipse').attr(h2Attr);
             _self.ellipse = svg.ellipse(0,0,50,40).attr({
@@ -337,22 +340,26 @@
         },
         //多边形和折线
         '10':function(){
-            var _self = shape[10] = {};
+            var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'折线和多边形').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ polyline & polygon').attr(h2Attr);
-            _self.polyline = svg.polyline('0,50,25,0,75,0,100,50,75,100,25,100').attr({
+            var polyline = svg.polyline('0,50,25,0,75,0,100,50,75,100,25,100').attr({
                 'stroke':'blue',
                 'stroke-width':1,
-                'fill':'none',
-                'transform':'matrix(2,0,0,2,100,190)'
+                'fill':'none'
             })
+            _self.polyline = svg.g(bgGridding(100,100),polyline).attr({
+                  'transform':'matrix(2,0,0,2,100,190)'
+             })
 
-            _self.polygon = svg.polygon('0,50,25,0,75,0,100,50,75,100,25,100').attr({
+            var polygon = svg.polygon('0,50,25,0,75,0,100,50,75,100,25,100').attr({
                 'stroke':'none',
                 'stroke-width':1,
-                'fill':'purple',
-                'transform':'matrix(2,0,0,2,100,480)'
+                'fill':'purple'
             })
+            _self.polygon = svg.g(bgGridding(100,100),polygon).attr({
+                'transform':'matrix(2,0,0,2,100,480)'
+             })
 
             var polyDiv = document.createElement('div');
             polyDiv.id = 'poly'
@@ -376,7 +383,7 @@
             document.body.appendChild(polyDiv);
         },
         '11':function(){
-            var _self = shape[11] = {};
+            var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'path路径').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ 基本命令').attr(h2Attr);
             var pathDiv = document.createElement('div');
@@ -448,7 +455,7 @@
         },
         //path
         '12':function(){
-            var _self = shape[12] = {};
+            var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'path路径').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ 画线').attr(h2Attr);
             
@@ -474,7 +481,7 @@
         },
         //quadratic Bézier
         '13':function(){
-            var _self = shape[12] = {};
+            var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'path路径').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ 二次贝塞尔曲线').attr(h2Attr);
 
@@ -482,60 +489,169 @@
                 transform:'matrix(1,0,0,1,100,200)'
             });
 
-            var quadratic = svg.path('M 0 100 Q 50,30 100 100').attr({
-                 fill:'none',
-                'stroke':'#600'
-            });
-
-            var dot = svg.circle(50,30,3).attr({
-                stroke:'none',
-                fill:'blue',
-                cursor:'pointer'
-            }).drag(
-                function(x,y,x1,y1,e){
-                    
-                },function(x,y){
-                    
-                },function(e){
-                  
-                }
-            );
-            // console.log(dot.getBBox());
-                // drag(
-                //     // function(){
-                //     //     console.log("Move started");
-                //     // },
-                //     // function(){
-                //     //     console.log("Move stopped");
-                //     // }
-                // );
-
-            _self.quadratic = svg.g(bgGridding(),quadratic,dot).attr({
-                transform:'matrix(1.5,0,0,1.5,100,480)'
-            })
-
             var pathDiv = document.createElement('div');
             pathDiv.id = 'path3'
 
             var div1 = document.createElement('div');
             div1.className = 'path3_code';
             // div1.innerHTML =
-            var html1 = '<path d="M 0 100 Q 50,30 100 100" fill="none" stroke="#660000"></path>';
+            var html1 = '<path d="M 0 100 Q 50,30 200 100" fill="none" stroke="#660000"></path>';
             html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
             div1.innerHTML = html1_encode;
             pathDiv.appendChild(div1);
             document.body.appendChild(pathDiv);
 
-            //
+            var path = 'M 0 100 Q 50 30 200 100';
+            var originPath = {};
+            var newPath = {};
+            originPath.arr = path.split(' ');
+            newPath.arr  = path.split(' ');
+            originPath.x = originPath.y = newPath.x = newPath.y = 0;
+            var code = document.querySelector('pre');
 
-            // var arcs = svg.path('M50,50 A50,50 0 0,1 100,100').attr({
-            //     fill:'none',
-            //     stroke:'#600'
-            // });
-            // _self.arcs = svg.g(rect.clone(),arcs).attr({
-            //     transform:'matrix(1,0,0,1,100,400)'
-            // })
+            var quadratic = svg.path(path).attr({
+                fill:'none',
+                'stroke':'#600'
+            });
 
+            var dot = svg.circle(50,30,3).attr({
+                stroke:'none',
+                fill:'blue',
+                cursor:'move'
+            }).drag(
+                function(x,y){
+                    newPath.x = originPath.x + x;
+                    newPath.y = originPath.y + y;
+                    dot.attr({
+                        transform:'matrix(1,0,0,1,'+newPath.x+','+newPath.y+")'"
+                    })
+                    newPath.arr[4] = +originPath.arr[4] + x;
+                    newPath.arr[5] = +originPath.arr[5] + y;
+                    quadratic.node.attributes['d'].value = newPath.arr.join(' ');
+                    code.innerHTML = code.innerHTML.replace(/d="(.*?)"/g,'d="'+  newPath.arr.join(' ') +'"');
+                },function(x,y,z,t,e){
+                    dot.attr('fill-opacity',.4)
+                },function(e){
+                    dot.attr('fill-opacity',1);
+                    originPath  =   JSON.parse(JSON.stringify(newPath));
+                }
+            );
+            _self.quadratic = svg.g(bgGridding(200,150),quadratic,dot).attr({
+                transform:'matrix(1.5,0,0,1.5,100,480)'
+            })
+        },
+        //
+        '14':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'path路径').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ 三次贝塞尔曲线').attr(h2Attr);
+
+            _self.img = svg.image('img/svg-bezier.png').attr({
+                transform:'matrix(1,0,0,1,80,200)'
+            });
+            _self.img2 = svg.image('img/svg-bezier-2.png').attr({
+                transform:'matrix(.8,0,0,.8,450,200)'
+            });
+           
+             var pathDiv = document.createElement('div');
+            pathDiv.id = 'path4'
+
+            var div1 = document.createElement('div');
+            div1.className = 'path3_code';
+            // div1.innerHTML =
+            var html1 = '<path d="M 0 100 C 50 10 150 190 200 100" fill="none" stroke="#660000"></path>';
+            html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
+            div1.innerHTML = html1_encode;
+            pathDiv.appendChild(div1);
+            document.body.appendChild(pathDiv);
+
+            var path = 'M 0 100 C 50 10 150 190 200 100';
+            var quadratic = svg.path(path).attr({
+                fill:'none',
+                'stroke':'#600'
+            });
+
+            var originPath = {};
+            var newPath = {};
+            originPath.arr = path.split(' ');
+            newPath.arr  = path.split(' ');
+            originPath.x = originPath.y = originPath.x1 = originPath.y1 = 0;
+            newPath.x = newPath.y =  newPath.x1 = newPath.y1 = 0;
+            var code = document.querySelector('pre');
+           
+            var dot = svg.circle(50,10,3).attr({
+                stroke:'none',
+                fill:'blue',
+                cursor:'move'
+            }).drag(
+                function(x,y){
+                    newPath.x = originPath.x + x;
+                    newPath.y = originPath.y + y;
+                    dot.attr({
+                        transform:'matrix(1,0,0,1,'+newPath.x+','+newPath.y+")'"
+                    })
+                    newPath.arr[4] = +originPath.arr[4] + x;
+                    newPath.arr[5] = +originPath.arr[5] + y;
+                    quadratic.node.attributes['d'].value = newPath.arr.join(' ');
+                    code.innerHTML = code.innerHTML.replace(/d="(.*?)"/g,'d="'+  newPath.arr.join(' ') +'"');
+                },function(x,y,z,t,e){
+                    dot.attr('fill-opacity',.4)
+                },function(e){
+                    dot.attr('fill-opacity',1);
+                    originPath  =   JSON.parse(JSON.stringify(newPath));
+                }
+            );
+            var dot2 = svg.circle(150,190,3).attr({
+                stroke:'none',
+                fill:'blue',
+                cursor:'move'
+            }).drag(
+                function(x,y){
+                    newPath.x1 = originPath.x1+ x;
+                    newPath.y1 = originPath.y1 + y;
+                    dot2.attr({
+                        transform:'matrix(1,0,0,1,'+newPath.x1+','+newPath.y1+")'"
+                    })
+                    newPath.arr[6] = +originPath.arr[6] + x;
+                    newPath.arr[7] = +originPath.arr[7] + y;
+                    quadratic.node.attributes['d'].value = newPath.arr.join(' ');
+                    code.innerHTML = code.innerHTML.replace(/d="(.*?)"/g,'d="'+  newPath.arr.join(' ') +'"');
+                },function(x,y,z,t,e){
+                    dot2.attr('fill-opacity',.4)
+                },function(e){
+                    dot2.attr('fill-opacity',1);
+                    originPath  =   JSON.parse(JSON.stringify(newPath));
+                }
+            );
+            _self.quadratic = svg.g(bgGridding(200,200),quadratic,dot,dot2).attr({
+                transform:'matrix(1.5,0,0,1.5,80,440)'
+            })
+        },
+        //arc
+        '15':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'path路径').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ 扇形').attr(h2Attr);
+
+            var arcs = svg.path('M50,50 A50,50 0 0,1 100,100').attr({
+                fill:'none',
+                stroke:'#600'
+            });
+            _self.arcs = svg.g(bgGridding(200,200),arcs).attr({
+                transform:'matrix(2,0,0,2,80,200)'
+            })
+
+            var p = '绘制圆弧指令：\
+A\
+rx ry x-axis-rotation large-arc-flag sweep-flag x y\
+画笔从当前的点绘制一段圆弧到点(x,y)\
+SVG路径中的A指令有7个参数，分别控制曲线的的各个属性。下面解释一下参数的含义：rx, 弧的半长轴长度\
+ry 弧的半短轴长度\
+x-axis-rotation 是此段弧所在的x轴与水平方向的夹角，即x轴的逆时针旋转角度，负数代表顺时针转动的角度。\
+large-arc-flag 为1 表示大角度弧线，0 代表小角度弧线。\
+sweep-flag 为1代表从起点到终点弧线绕中心顺时针方向，0 代表逆时针方向。\
+x,y 是弧终端坐标。\
+x-axis-rotation代表旋转的角度，体会下面例子中圆弧的不同：';
         }
     },frameBack = {
         '1': function(){
@@ -580,7 +696,19 @@
         '12': function(){
             fun.clear();
             document.querySelector('#path2').remove();
-        }
+        },
+        '13': function(){
+            fun.clear();
+            document.querySelector('#path3').remove();
+        },
+        '14': function(){
+            fun.clear();
+            document.querySelector('#path4').remove();
+        },
+        '15': function(){
+            fun.clear();
+            document.querySelector('#path5').remove();
+        },
 
 
 
@@ -606,6 +734,14 @@
         var div = document.createElement('div');  
         div.appendChild(document.createTextNode(s));  
         return div.innerHTML;
+    }
+    //xml getAttributeValue
+    fun.getAttributeValue = function  (xmlNode,attrName){
+        if(!xmlNode)return "" ;
+        if(!xmlNode.attributes) return "" ;   
+        if(xmlNode.attributes[attrName]!=null) return xmlNode.attributes[attrName].value ;
+        if(xmlNode.attributes.getNamedItem(attrName)!=null)  return xmlNode.attributes.getNamedItem(attrName).value ;
+        return "" ;
     }
     //
     fun.frame = function(direction){
