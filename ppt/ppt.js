@@ -553,7 +553,7 @@
                 transform:'matrix(.8,0,0,.8,450,200)'
             });
            
-             var pathDiv = document.createElement('div');
+            var pathDiv = document.createElement('div');
             pathDiv.id = 'path4'
 
             var div1 = document.createElement('div');
@@ -637,21 +637,232 @@
                 fill:'none',
                 stroke:'#600'
             });
-            _self.arcs = svg.g(bgGridding(200,200),arcs).attr({
-                transform:'matrix(2,0,0,2,80,200)'
+            _self.arcs = svg.g(bgGridding(150,150),arcs).attr({
+                transform:'matrix(2,0,0,2,40,200)'
             })
 
-            var p = '绘制圆弧指令：\
-A\
-rx ry x-axis-rotation large-arc-flag sweep-flag x y\
-画笔从当前的点绘制一段圆弧到点(x,y)\
-SVG路径中的A指令有7个参数，分别控制曲线的的各个属性。下面解释一下参数的含义：rx, 弧的半长轴长度\
-ry 弧的半短轴长度\
-x-axis-rotation 是此段弧所在的x轴与水平方向的夹角，即x轴的逆时针旋转角度，负数代表顺时针转动的角度。\
-large-arc-flag 为1 表示大角度弧线，0 代表小角度弧线。\
-sweep-flag 为1代表从起点到终点弧线绕中心顺时针方向，0 代表逆时针方向。\
-x,y 是弧终端坐标。\
-x-axis-rotation代表旋转的角度，体会下面例子中圆弧的不同：';
+            var p = '<p>绘制圆弧指令：A</p>\
+<p>rx ry x-axis-rotation large-arc-flag sweep-flag x y</p>\
+<p>SVG路径中的A指令有7个参数，分别控制曲线的的各个属性。下面解释一下参数的含义：rx, 弧的半长轴长度 ,ry 弧的半短轴长度</p>\
+<p>x-axis-rotation 是此段弧所在的x轴与水平方向的夹角，即x轴的逆时针旋转角度，负数代表顺时针转动的角度。</p>\
+<p>large-arc-flag 为1 表示大角度弧线，0 代表小角度弧线。</p>\
+<p>sweep-flag 为1代表从起点到终点弧线绕中心顺时针方向，0 代表逆时针方向。</p>\
+<p>x,y 是弧终端坐标。</p>';
+            var acrDiv = document.createElement('div');
+            acrDiv.id = 'acr'
+
+            var div1 = document.createElement('div');
+            div1.className = 'acr1_code';
+            // div1.innerHTML =
+            var html1 = p;
+            html1_encode = '<pre>' + (html1) + '</pre>';
+            div1.innerHTML = html1_encode;
+            acrDiv.appendChild(div1);
+            document.body.appendChild(acrDiv);
+
+            var arcs1 = svg.path('M50,50 A50,50 0 0,0 100,100').attr({
+                fill:'none',
+                stroke:'#600'
+            });
+            var arcs2 = svg.path('M50,50 A50,50 0 0,1 100,100').attr({
+                fill:'none',
+                stroke:'#600',
+                transform:'matrix(1,0,0,1,100,0)'
+            });
+            var arcs3 = svg.path('M50,50 A50,50 0 1,0 100,100').attr({
+                fill:'none',
+                stroke:'#600',
+                transform:'matrix(1,0,0,1,260,0)'
+            });
+            var arcs4 = svg.path('M50,50 A50,50 0 1,1 100,100').attr({
+                fill:'none',
+                stroke:'#600',
+                transform:'matrix(1,0,0,1,320,0)'
+            });
+
+            _self.arcsArr = svg.g(bgGridding(600,180),arcs1,arcs2,arcs3,arcs4).attr({
+                transform:'matrix(1,0,0,1,40,550)'
+            })
+
+        },
+        //bingzhuangtu
+        '16':function(){
+              var _self = shape[FRAME] = {};
+              _self.title = svg.text(0,0,'path路径').attr(titleAttr);
+              _self.h2 = svg.text(50,150,'▪ 扇形实例 饼状图').attr(h2Attr);
+              _self.ul = svg.text(80,200,'Top 10 Most Popular Programming Languages 2014').attr(liAttr).attr('color','#666');
+              var data = [22,17,16,12,11,9,5,3,3,2];
+              var dataText = ['javascript','php','java','html','c#','python','c++','object-c','r','c'];
+
+              (function(){
+                var angleData = [];
+                for(var i = 0;i<data.length;i++){
+                  angleData.push(360 * (data[i]/100).toFixed(2));
+                }
+                window.angleData = angleData;
+              })(data)
+              
+              var r = 80;
+              var dot         = {x:0,y:0};
+              var startPoint  = {x:dot.x,y:dot.y-r},
+                  endPoint    = {};
+              var largeArcFlag = 0;
+              var g = 0;
+              var angle = 0;
+              var all = {};
+
+              var svgG = svg.paper.g();
+              svgG.add(bgGridding(200,200).attr({
+                'transform':'matrix(1,0,0,1,-100,-100)',
+                'opacity':0
+              }));
+              var svgRtext = svg.paper.g();
+              var padding = 0;
+              for(i=0; i<angleData.length; i++){
+                
+                if(angleData[i] > 180 ){
+                  largeArcFlag = 1;
+                }
+
+                g += angleData[i];
+                angle = g;
+
+                if(angle <= 90){
+
+                }else if(angle <= 180){
+                  angle = 180 - angle; 
+                }else if(angle <= 270){
+                  angle = angle - 180;
+                }else{
+                   angle = 360 - angle;
+                }
+                // console.log(angle);
+                //
+                endPoint.x = r * Math.sin(angle*Math.PI/180);
+                endPoint.y = r * Math.cos(angle*Math.PI/180);
+                //
+                var text = {};
+                var _len =  (r/2) / Math.cos(angle/2*Math.PI/180);
+                // console.log(_len);
+                var _angle = (90 - angle/2);
+                text.x = _len * Math.cos(angle/2*Math.PI/180);
+                text.y = _len * Math.sin(angle/2*Math.PI/180) - 5;
+                //
+                if(g <= 90){
+                  endPoint.y = - endPoint.y;
+                  text.y  = - text.y;
+                }else if(g <= 180){
+                  
+                }else if(g <= 270){
+                  endPoint.x = - endPoint.x;
+                  text.x = - text.x;
+                }else{
+                  endPoint.x = - endPoint.x;
+                  endPoint.y = - endPoint.y;
+                  text.x = - text.x;
+                  text.y = - text.y;
+                }
+
+                //draw
+                var pathArr = ['M', dot.x, dot.y, 'L', startPoint.x, startPoint.y,
+                               'A', r, r, 0, largeArcFlag, 1, endPoint.x, endPoint.y];
+                var path = pathArr.join(' ');
+                
+                var cr = parseInt(Math.random()*255);
+                var cg = parseInt(Math.random()*255);
+                var cb = parseInt(Math.random()*255);
+                var rgbColor = 'rgb('+ cr +','+ cg + ',' + cb+')';
+
+                var _path = svg.path(path).attr({
+                    stroke:'none',
+                    fill:rgbColor,
+                  })
+                svgG.add(_path);
+                //
+                startPoint.x =  endPoint.x;
+                startPoint.y =  endPoint.y;
+
+                padding += data[i];
+                svgRtext.add(svg.rect(140,25*i,8,8).attr({
+                  fill:rgbColor,
+                  transform:'matix(1,0,0,1,-10,-8)'
+                }));
+
+                svgRtext.add(svg.text(140,25*i,data[i] + '%' + ' ' + dataText[i])).attr({
+                  'text-anchor':'right',
+                });
+                svgRtext.attr({
+                  transform:'matix(1,0,0,1,400,320)'
+                })
+              }
+              //
+              svgG.attr({
+                transform:'matix(2,0,0,2,300,420)'
+              })
+              _self.svgG = svgG;
+              _self.svgRtext = svgRtext;
+              //
+              _self.code = svg.text(100,670,'<path d="M 0 0 L 0 -80 A 80 80 0 0 1 78.6 -15" stroke="none" fill="#3d8194"></path>').attr({
+                id:'code',
+                fill:"#c7254e",
+                opacity:0
+              })
+              _self.svgG.click(function(){
+                _self.svgG.select('rect').attr('opacity',1);
+                _self.code.attr('opacity',1);
+              })
+        },
+        //g
+        '17':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'g').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ 组合').attr(h2Attr);
+            _self.circleArr = svg.g(
+                svg.circle(0,0,100),
+                svg.circle(0,0,80),
+                svg.circle(0,0,60),
+                svg.circle(0,0,40),
+                svg.circle(0,0,20),
+                svg.circle(0,0,5),
+                svg.text(0,0,'g标签').attr({
+                    'fill':'yellow',
+                    'text-anchor':'middle',
+                    'font-size':20
+                })
+            ).attr({
+                // 'fill':'r(.5,.5,.5,.5,.5)rgba(246,241,7,1)-rgba(246,241,7,.0)',
+                'fill':'l(1,0,1,1)rgba(255,0,0,1)-rgba(89,220,16,.6)',
+                'stroke-opacity':.4,
+                'stroke':'gray',
+                'stroke-width':3,
+                'transform':'matrix(1.5,0,0,1.5,200,420)'
+            });
+
+            var gDiv = document.createElement('div');
+            gDiv.id = 'g'
+
+            var div1 = document.createElement('div');
+            div1.className = 'g_code';
+   
+            var html1 = '<g fill="url(\'#Si42ho681d\')" style="stroke-opacity: 0.4; stroke-width: 3px;" stroke="#808080" transform="matrix(1.5,0,0,1.5,250,400)">\n\
+    <circle cx="0" cy="0" r="100"></circle>\n\
+    <circle cx="0" cy="0" r="80"></circle>\n\
+    <circle cx="0" cy="0" r="60"></circle>\n\
+    <circle cx="0" cy="0" r="40"></circle>\n\
+    <circle cx="0" cy="0" r="20"></circle>\n\
+    <circle cx="0" cy="0" r="5"></circle>\n\
+    <text x="0" y="0" fill="yellow" style="text-anchor: middle; font-size: 20px;">g标签</text>\n\
+</g>';
+            html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
+            div1.innerHTML = html1_encode;
+            gDiv.appendChild(div1);
+            document.body.appendChild(gDiv);
+        },
+        //text
+        '18':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'文本').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ text').attr(h2Attr);
         }
     },frameBack = {
         '1': function(){
@@ -707,8 +918,18 @@ x-axis-rotation代表旋转的角度，体会下面例子中圆弧的不同：';
         },
         '15': function(){
             fun.clear();
-            document.querySelector('#path5').remove();
+            document.querySelector('#acr').remove();
         },
+        '16': function(){
+             fun.clear();
+        },
+        '17':function(){
+            fun.clear();
+            document.querySelector('#g').remove();
+        },
+        '18':function(){
+            fun.clear();
+        }
 
 
 
@@ -767,7 +988,7 @@ x-axis-rotation代表旋转的角度，体会下面例子中圆弧的不同：';
                 break;
             case 37: case 38:
             console.log(FRAME);
-                if(FRAME < 12 || FRAME >15){
+                if(FRAME < 12 || FRAME >16){
                     return;
                 }
                 console.log(FRAME);
