@@ -42,7 +42,7 @@
             color:#ccc;
             font-size: 14px;
         }
-        .line_code,.rect_code,.circle_code,.poly_code,.ellipse_code,.path2_code,.path3_code,.acr1_code,.g_code{
+        .code{
             position:absolute;left:45%;right:2%;
         }
         #path_base{
@@ -105,11 +105,54 @@
         .g_code:nth-of-type(1){
             top:280px;
         }
+        .a_code:nth-of-type(1){
+            left:10%;
+            right:10%;
+            top:280px;
+        }
+        .defs_code:nth-of-type(1){
+            top:250px;
+        }
+
+        .gradient_code:nth-of-type(1){
+            top:240px;
+        }
+        .gradient_code:nth-of-type(2){
+            top:520px;
+        }
+        .mask_code:nth-of-type(1){
+            left:10%;
+            right:10%;
+            top:600px;
+        }
+
+
+
+
+
+
+        .mask{
+            -webkit-animation: breeze 3s linear infinite;
+        }
+        @-webkit-keyframes breeze{
+            0%{
+                 -webkit-transform:matrix(1,0,0,1,0,0);
+            }
+            50%{
+                 -webkit-transform:matrix(1,0,0,1,0,300);
+            }
+            100%{
+                 -webkit-transform:matrix(1,0,0,1,0,0);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <svg id="screen" width="100%" height="100%"></svg>
+        <svg xmlns="http://www.w3.org/2000/svg"
+             xmlns:xlink="http://www.w3.org/1999/xlink"
+             id="screen" width="100%" height="100%" >
+        </svg>
         <div class="page">- <span id="page_num">1</span> -</div>
     </div>
 <script type="text/javascript" src="snap.svg.js"></script>

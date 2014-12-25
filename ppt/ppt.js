@@ -1,6 +1,7 @@
 (function(window){
     var WIDTH = 1024, HEIGHT = 768, FRAME = window.location.search.split("?")[1] || 1;
     var svg = Snap('#screen');
+    var m = new Snap.Matrix();
     // console.log(container)
     var shape = {};
     // function
@@ -172,7 +173,7 @@
             lineDiv.id = 'line'
 
             var div1 = document.createElement('div');
-            div1.className = 'line_code';
+            div1.className = 'line_code code';
             // div1.innerHTML =
             var html1 = '<svg xmlns="http://www.w3.org/2000/svg">\n\
     <line x1="20"  y1="100" x2="2800"  y2="100" stroke="#000"/>\n\
@@ -182,7 +183,7 @@
             lineDiv.appendChild(div1);
 
             var div2 = document.createElement('div');
-            div2.className = 'line_code';
+            div2.className = 'line_code code';
             var html2 =  '<svg xmlns="http://www.w3.org/2000/svg">\n\
     <defs>\n\
         <linearGradient id="myLinearGradient1"\n\
@@ -235,7 +236,7 @@
             rectDiv.id = 'rect'
 
             var div1 = document.createElement('div');
-            div1.className = 'rect_code';
+            div1.className = 'rect_code code';
             // div1.innerHTML =
             var html1 = '<rect x="0" y="0" width="180" height="100" stroke="#cccccc" fill="#88aa00" stroke-width="3">\n\
 </rect>';
@@ -244,7 +245,7 @@
             rectDiv.appendChild(div1);
 
             var div2 = document.createElement('div');
-            div2.className = 'rect_code';
+            div2.className = 'rect_code code';
             var html2 =  '<rect x="0" y="0" width="180" height="100" rx="20" ry="20" fill="#ff6600">\n\
 </rect>';
             html2_encode = '<pre>' + fun.htmlencode(html2) + '</pre>';
@@ -252,7 +253,7 @@
             rectDiv.appendChild(div2);
 
             var div3 = document.createElement('div');
-            div3.className = 'rect_code';
+            div3.className = 'rect_code code';
             var html3 =  '<rect x="0" y="0" width="180" height="140" stroke="#ffcc00" fill="none" style="stroke-width: 3px;">\n\
 </rect>';
             html3_encode = '<pre>' + fun.htmlencode(html3) + '</pre>';
@@ -260,7 +261,7 @@
             rectDiv.appendChild(div3);
 
             var div4 = document.createElement('div');
-            div4.className = 'rect_code';
+            div4.className = 'rect_code code';
             var html4 =  '<rect x="0" y="0" width="180" height="100" stroke="#ff5555" fill="none" style="stroke-width: 3px; stroke-dasharray: 10px, 5px;">\n\
 </rect>';
             html4_encode = '<pre>' + fun.htmlencode(html4) + '</pre>';
@@ -297,7 +298,7 @@
             circleDiv.id = 'circle'
 
             var div1 = document.createElement('div');
-            div1.className = 'circle_code';
+            div1.className = 'circle_code code';
             // div1.innerHTML =
             var html1 = '<circle cx="0" cy="0" r="100" stroke="#008000" style="stroke-width: 1px;" fill="#ffff00">\n\
 </circle>';
@@ -306,7 +307,7 @@
             circleDiv.appendChild(div1);
 
             var div2 = document.createElement('div');
-            div2.className = 'circle_code';
+            div2.className = 'circle_code code';
             var html2 =  '<circle cx="0" cy="0" r="100" stroke="none" style="stroke-width: 1px; fill-opacity: 0.5;" fill="#ff0000">\n\
 </circle>';
             html2_encode = '<pre>' + fun.htmlencode(html2) + '</pre>';
@@ -329,7 +330,7 @@
             ellipseDiv.id = 'ellipse'
 
             var div1 = document.createElement('div');
-            div1.className = 'ellipse_code';
+            div1.className = 'ellipse_code code';
             // div1.innerHTML =
             var html1 = '<ellipse cx="0" cy="0" rx="50" ry="40" fill="#800080" stroke="none" transform="matrix(3,0,0,3,200,450)">\n\
 </ellipse>';
@@ -365,7 +366,7 @@
             polyDiv.id = 'poly'
 
             var div1 = document.createElement('div');
-            div1.className = 'poly_code';
+            div1.className = 'poly_code code';
             // div1.innerHTML =
             var html1 = '<polyline points="0,50,25,0,75,0,100,50,75,100,25,100" stroke="#0000ff" fill="none" style="stroke-width: 1px;">\n\
 </polyline>';
@@ -374,7 +375,7 @@
             polyDiv.appendChild(div1);
 
             var div2 = document.createElement('div');
-            div2.className = 'poly_code';
+            div2.className = 'poly_code code';
             var html2 =  '<polygon points="0,50,25,0,75,0,100,50,75,100,25,100" stroke="none" fill="#800080" style="stroke-width: 1px;">\n\
 </polygon>';
             html2_encode = '<pre>' + fun.htmlencode(html2) + '</pre>';
@@ -471,7 +472,7 @@
             pathDiv.id = 'path2'
 
             var div1 = document.createElement('div');
-            div1.className = 'path2_code';
+            div1.className = 'path2_code code';
             // div1.innerHTML =
             var html1 = '<path d="M10 10 L50 50 M50 60 H140 M50 70 V140" fill="none" stroke="#660000"></path>';
             html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
@@ -493,7 +494,7 @@
             pathDiv.id = 'path3'
 
             var div1 = document.createElement('div');
-            div1.className = 'path3_code';
+            div1.className = 'path3_code code';
             // div1.innerHTML =
             var html1 = '<path d="M 0 100 Q 50,30 200 100" fill="none" stroke="#660000"></path>';
             html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
@@ -557,7 +558,7 @@
             pathDiv.id = 'path4'
 
             var div1 = document.createElement('div');
-            div1.className = 'path3_code';
+            div1.className = 'path3_code code';
             // div1.innerHTML =
             var html1 = '<path d="M 0 100 C 50 10 150 190 200 100" fill="none" stroke="#660000"></path>';
             html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
@@ -652,7 +653,7 @@
             acrDiv.id = 'acr'
 
             var div1 = document.createElement('div');
-            div1.className = 'acr1_code';
+            div1.className = 'acr1_code code';
             // div1.innerHTML =
             var html1 = p;
             html1_encode = '<pre>' + (html1) + '</pre>';
@@ -842,7 +843,7 @@
             gDiv.id = 'g'
 
             var div1 = document.createElement('div');
-            div1.className = 'g_code';
+            div1.className = 'g_code code';
    
             var html1 = '<g fill="url(\'#Si42ho681d\')" style="stroke-opacity: 0.4; stroke-width: 3px;" stroke="#808080" transform="matrix(1.5,0,0,1.5,250,400)">\n\
     <circle cx="0" cy="0" r="100"></circle>\n\
@@ -863,7 +864,329 @@
             var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'文本').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ text').attr(h2Attr);
+            (function(){
+                var text1 = svg.text(50,20,'这是文本1');
+                var text2 = svg.text(50,50,'这是文本2').attr('text-anchor','start');
+                var text3 = svg.text(50,80,'这是文本3').attr('text-anchor','middle');
+                var text4 = svg.text(50,110,'这是文本4').attr('text-anchor','end');
+                var line = svg.line(50,0,50,120).attr('stroke','red');
+                _self.text1 = svg.g(bgGridding(120,120),text1,text2,text3,text4,line).attr({
+                transform:'matrix(2,0,0,2,100,200)'
+                })
+            })(_self);
+
+            (function(){
+                var text1 = svg.text(20,20,'Fill only').attr({
+                    'fill':'red',
+                    'font-size':22
+                });
+                var text2 = svg.text(20,50,'Stroke only').attr({
+                    'stroke':'blue',
+                    'stroke-width':'.5',
+                    'fill':'none',
+                    'font-size':18
+                });
+                var text3 = svg.text(20,80,'Fill and stroke').attr({
+                    'stroke':'red',
+                    'stroke-width':'.5',
+                    'font-size':24
+                });
+                var text4 = svg.text(190,0,'竖排文本').attr({
+                    'writing-mode': 'tb',
+                    'glyph-orientation-vertical':90,
+
+                });
+                //
+                var text5 = svg.text(190,110,'倒过来念的是猪').attr({
+                    'direction': 'rtl',
+                    'unicode-bidi': 'bidi-override',
+                    'font-family':"方正楷体_GBK",
+                    'font-size':20,
+                    'fill':'l(0,0,1,1)rgba(255,0,0,1)-rgba(89,220,16,.6)',
+                    'fill-rule':'nonezero'
+                });
+                _self.text2 = svg.g(text1,text2,text3,text4,text5).attr({
+                    transform:'matrix(2,0,0,2,450,200)'
+                })
+               
+            })(_self);
+
+            (function(){
+                var text3 = svg.text(0,20,['ABCDE']);
+                text3.select('tspan').attr({
+                    dx:"0 10 20 30 10",
+                    // dy:"0 10 20 30 10"
+                }).click(function(){
+                    this.attr('dy','0,10,10,10,10')
+                })
+                _self.text3 = svg.g(bgGridding(120,100),text3).attr({
+                    transform:'matrix(2,0,0,2,100,500)'
+                })
+            })(_self);
+
+            (function(){
+                var text = 'Text along a more advanced path with lines and curves';
+                var path ="M75,20 l100,0 l100,30 q0,100 150,100";
+                _self.pathText = svg.text(20,20,text).attr({
+                    'textpath':path,
+                    'transform':'matrix(1,0,0,1,400,500)'
+                });
+                var text2 = "沿路径环绕文本";
+                var path2 = "M0,-50 A 50 50 0 1 1 0 -49.5 z";
+                _self.pathText1 = svg.text(0,0,text2).attr({
+                    'textpath':path2,
+                    'letter-spacing': 18,
+                    'fill':'green',
+                    'transform':'matrix(1,0,0,1,520,700)',
+                });
+            })(_self);
+
+            
+        },
+        //image
+        '19':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'图像').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ image').attr(h2Attr);
+            _self.img = svg.image('img/mv.jpg',0, 0, 80, 50).attr({
+                transform:'matrix(8,0,0,8,180,220)'
+            })
+        },
+        //a link
+        '19':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'超链接').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ a').attr(h2Attr);
+
+            var aDiv = document.createElement('div');
+            aDiv.id = 'a'
+
+            var div1 = document.createElement('div');
+            div1.className = 'a_code code';
+       
+            var html1 = '<svg xmlns="http://www.w3.org/2000/svg"\n\
+    xmlns:xlink="http://www.w3.org/1999/xlink">\n\
+    <a xlink:href="/svg/index.html">\n\
+        <text x="10" y="20">/svg/index.html</text>\n\
+    </a>\n\
+    <a xlink:href="/svg/index.html" target="_blank">\n\
+        <text x="10" y="80">m/svg/index.html\n\
+         (target="_blank")</text>\n\
+    </a>\n\
+    <a xlink:href="/svg/index.html" target="_top">\n\
+        <text x="10" y="100">/svg/index.html\n\
+        (target="_top")</text>\n\
+    </a>\n\
+</svg>';
+            html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
+            div1.innerHTML = html1_encode;
+            aDiv.appendChild(div1);
+            document.body.appendChild(aDiv);
+        },
+        //defs
+        '20':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'定义').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ defs').attr(h2Attr);
+            var graph = svg.g(
+                svg.circle(0,0,50),
+                svg.rect(0,0,50,50),
+                svg.circle(0,0,4).attr('fill','#fff')
+            ).attr({
+                fill:'green',
+                transform:'matrix(1,0,0,1,200,200)',
+                id:'defs_shape'
+            }).toDefs();
+            svg.append(svg.use().attr({
+                'xlink:href':'#defs_shape',
+                'x':0,
+                'y':100
+            }))
+            svg.append(svg.use().attr({
+                'xlink:href':'#defs_shape',
+                'x':0,
+                'y':240
+            }))
+            _self.use = svg.selectAll('use');
+
+            var defsDiv = document.createElement('div');
+            defsDiv.id = 'defs'
+
+            var div1 = document.createElement('div');
+            div1.className = 'defs_code code';
+       
+            var html1 = '<svg>\n\
+  <defs>\n\
+    <g id="shape">\n\
+        <rect x="50" y="50" width="50" height="50" />\n\
+        <circle cx="50" cy="50" r="50" />\n\
+    </g>\n\
+  </defs>\n\
+  <use xlink:href="#shape" x="0" y="100" />\n\
+  <use xlink:href="#shape" x="0" y="240" />\n\
+</svg>';
+            html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
+            div1.innerHTML = html1_encode;
+            defsDiv.appendChild(div1);
+            document.body.appendChild(defsDiv);
+            _self.ul = svg.text(100,650,'渐变色 、滤镜').attr(liAttr);
+        },
+        '21':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'渐变').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ Linear Gradients').attr(h2Attr);
+            _self.linearGradient = svg.rect(0,0,150,150).attr({
+                fill:'l(0,0,0,1)rgb(255,0,0)-rgba(0,255,0)',
+                'transform':'matrix(1,0,0,1,100,220)'
+            })
+
+            _self.h21 = svg.text(50,450,'▪ Radial Gradients').attr(h2Attr);
+            _self.radialGradient = svg.circle(0,0,80,80).attr({
+                fill:'r(.5,.5,.5)rgba(255,0,0,1):60-rgba(255,255,0,.2)',
+                'transform':'matrix(1.2,0,0,1.2,170,590)'
+            })
+
+            var gradientsDiv = document.createElement('div');
+            gradientsDiv.id = 'gradient'
+
+            var div1 = document.createElement('div');
+            div1.className = 'gradient_code code';
+            // div1.innerHTML =
+            var html1 = '<linearGradient x1="0" y1="0" x2="0" y2="1" id="Si43t2iqs7">\n\
+    <stop offset="0%" stop-color="#ff0000"></stop>\n\
+    <stop offset="100%" stop-color="#00ff00"></stop>\n\
+</linearGradient>';
+            html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
+            div1.innerHTML = html1_encode;
+            gradientsDiv.appendChild(div1);
+
+            var div2 = document.createElement('div');
+            div2.className = 'gradient_code code';
+            var html2 =  '<radialGradient cx="0.5" cy="0.5" r="0.5" id="Si43t574ua">\n\
+    <stop offset="60%" stop-color="#ff0000"></stop>\n\
+    <stop offset="100%" stop-color="#ffff00" stop-opacity="0.2"></stop>\n\
+</radialGradient>';
+            html2_encode = '<pre>' + fun.htmlencode(html2) + '</pre>';
+            div2.innerHTML = html2_encode;
+            gradientsDiv.appendChild(div2);
+            document.body.appendChild(gradientsDiv);
+        },
+        '22':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'裁切').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ clip-path').attr(h2Attr);
+
+            var rect = svg.rect(15,15,40,40);
+
+            var circle = svg.circle(25,25,20).attr({
+                fill:'purple'
+            }).click(function(){
+                this.attr('clip-path',rect)
+            })
+
+            _self.clip1 = svg.g(rect,circle).attr({
+                transform:'matrix(2.5,0,0,2.5,100,200)'
+            })
+            
+            var text = svg.text(5,55,'这是一段文本').attr({
+                'font-size':32,
+                'font-family':"方正姚体_GBK"
+            }).toDefs();
+            var rect1 = svg.rect(0,0,200,100).attr({
+                'fill':'l(0,0,1,1)rgb(255,0,0):23-rgb(0,255,0):50-rgb(0,0,255)',
+                'clip-path':text
+            })
+            _self.clip2 = svg.g(rect1).attr({
+                transform:'matrix(1.5,0,0,1.5,500,200)'
+            })
+
+            var pathValue = 'M736 684c-65.952 0-128.576-25.024-176.384-70.464-4.576-4.32-28.672-28.736-47.328-47.68L464.96 612.96C417.12 658.784 354.272 684 288 684c-141.152 0-256-114.848-256-256 0-82.432 41.184-144.288 76.48-182.496l316.896-320.128C450.464-99.68 478.304-116 512-116c33.696 0 61.568 16.32 86.752 41.504l316.736 320 2.208 2.464C955.904 295.616 992 340.608 992 428 992 569.152 877.152 684 736 684z';
+            var heart = svg.path(pathValue).attr({
+                fill:'red',
+                'transform':"matrix(.01,0,0,.01,35,10)"
+                // 'transform':"matrix(.4,0,0,.4,35,20) rotate(180deg)"
+            })
+
+            _self.img = svg.image('img/mv.jpg',0, 0, 80, 50).attr({
+                transform:'matrix(6,0,0,6,240,400)',
+                'clip-path':heart
+            }).click(function(){
+                heart.animate({
+                    'transform':"matrix(.06,0,0,.06,10,8) rotate(540deg)"
+                },800);
+            })
+        },
+        //mark
+        '23':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'遮照').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ Mask').attr(h2Attr);
+
+            
+            var _mask = svg.rect(5,0,90,50).attr('fill','#fff');
+            var rect = svg.rect(0,0,100,100).attr('fill','purple').click(function(){
+                this.attr('mask',_mask)
+            })
+            var blackBtn = svg.text(120,15,'黑 #000').attr('class','btn').data('color','#000');
+            var grayBtn = svg.text(120,45,'灰 #ccc').attr('class','btn').data('color','#ccc');
+
+            svg.selectAll('.btn').forEach(function(element,index){
+                element.click(function(){
+                    var color = element.data('color');
+                    _mask.attr({
+                        fill:color
+                    })
+                })
+            });
+            // console.log(a);
+            _self.mask1 = svg.g(bgGridding(180,180),rect,_mask,blackBtn,grayBtn).attr({
+                transform:"matrix(1.5,0,0,1.5,60,200)"
+            })
+
+            //
+            var maskCircle = svg.circle(175,140,60);
+            maskCircle.attr({
+                fill:'r(.5,.5,.5)rgba(255,255,255,1):70-rgba(255,255,255,.2)',
+            })
+            var img = svg.image('img/mv2.jpg',0,0).attr('mask',maskCircle).click(function(){
+                maskCircle.attr('class','mask')
+            });
+            _self.mask2 = svg.g(img).attr({
+                transform:'matrix(1,0,0,1,450,90)'
+            })
+
+            var maskDiv = document.createElement('div');
+            maskDiv.id = 'mask'
+
+            var div1 = document.createElement('div');
+            div1.className = 'mask_code';
+            // div1.innerHTML =
+            var html1 = '<radialGradient cx="0.5" cy="0.5" r="0.5" id="Si43zqftae">\n\
+    <stop offset="70%" stop-color="#ffffff"></stop>\n\
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.2"></stop>\n\
+</radialGradient>';
+            html1_encode = '<pre>' + fun.htmlencode(html1) + '</pre>';
+            div1.innerHTML = html1_encode;
+            maskDiv.appendChild(div1);
+            document.body.appendChild(maskDiv);
+
+        },
+        //transform
+        '24':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'变形').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ transform').attr(h2Attr);
+
+            var rect1 = svg.rect(0,0,200,120).attr({
+                'fill':'gray'
+            }).hover(function(){
+                this.transform(m.scale(1.2, 1.2,100,60))
+            })
+            _self.rect1 = svg.g(rect).attr({
+                transform:'matrix(1,0,0,1,100,200)'
+            })
         }
+
     },frameBack = {
         '1': function(){
             fun.clear();
@@ -929,10 +1252,26 @@
         },
         '18':function(){
             fun.clear();
+        },
+        '19':function(){
+            fun.clear();
+            document.querySelector('#a').remove();
+        },
+        '20':function(){
+            fun.clear();
+            document.querySelector('#defs').remove();
+        },
+        '21':function(){
+            fun.clear();
+            document.querySelector('#gradient').remove();
+        },
+        '22':function(){
+            fun.clear();
+        },
+        '23':function(){
+            fun.clear();
+            document.querySelector('#mask').remove();
         }
-
-
-
     }
     //remove
     fun.remove = function(name) {
