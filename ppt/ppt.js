@@ -45,6 +45,21 @@
             fill:p
         })
     } 
+    var arcs = svg.path('M 50 0 A 50 50 0 1 1  35 -35').attr('stroke-width',2)
+    var arrow = svg.path('m 14.284989,5.3695987 0,12.8644903 -12.8814802,0 c 0.0489,0.40417 0.38889,0.71328 0.80669,0.71328 l 11.9559102,0 c 0.4516,0 0.81517,-0.36357 0.81517,-0.81518 l 0,-11.9559003 c 0,-0.41221 -0.30003,-0.75069 -0.69629,-0.80669 z').attr('transform','matrix(1,0,0,1,21,-52)')
+    var flush = svg.g(arcs,arrow).attr({
+             'stroke':'#ccc',
+              'fill':'#fff',
+              'transform':'matrix(.4,0,0,.4,980,30)',
+              'opacity':0,
+              'cursor':'pointer'
+      }).hover(function(){
+            this.attr('opacity',1);
+      },function(){
+           this.attr('opacity',0);
+      }).click(function(){
+            window.location.href= window.location.pathname+'?'+FRAME;
+      })
     // screen
     var frame = {
         //svg
@@ -78,25 +93,25 @@
                 'fill':'#c83737',
                 transform:'matrix(1,0,0,1,120,360)'
                })
-        },
-        //案例
-        '3':function(){
-            var _self = shape[FRAME-1];
-            _self.h2 = svg.text(0,0,'案例').attr(h2Attr).attr({
-                transform:'matrix(1,0,0,1,100,440)'
-            });
+               //案例
+                _self.h2 = svg.text(0,0,'案例').attr(h2Attr).attr({
+                    transform:'matrix(1,0,0,1,100,440)'
+                }).click(function(){
+                    _self.li2.attr('opacity',1);
+                })
 
-            var li2 = ['• http://top.baidu.com','• http://developer.baidu.com/map/jsdemo.htm#c1_1','• http://iconfont.cn'];
-            _self.li2 = svg.text(0,0,li2).attr(liAttr).attr({
-                transform:'matrix(1,0,0,1,100,440)'
-            });
-            var rowArr = _self.li2.selectAll('tspan')
-            for(var i = 0,len = rowArr.length; i<len; i++){
-                rowArr[i].attr({x:0,y:(i+1)*45})
-            }
+                var li2 = ['• http://top.baidu.com','• http://developer.baidu.com/map/jsdemo.htm#c1_1','• http://iconfont.cn'];
+                _self.li2 = svg.text(0,0,li2).attr(liAttr).attr({
+                    transform:'matrix(1,0,0,1,100,440)',
+                    'opacity':0
+                });
+                var rowArr = _self.li2.selectAll('tspan')
+                for(var i = 0,len = rowArr.length; i<len; i++){
+                    rowArr[i].attr({x:0,y:(i+1)*45})
+                }
         },
         //使用方式
-        '4':function(){
+        '3':function(){
             var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'使用方式').attr(titleAttr);
             var ul = ['• 浏览器直接打开','• 在HTML中使用<img>标签引用','• 直接在HTML中使用SVG标签','• 作为CSS背景'];
@@ -109,7 +124,7 @@
             }
         },
         //基本图像和属性
-        '5':function(){
+        '4':function(){
             var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'基本图像和属性').attr(titleAttr);
             _self.oh2 = svg.text(0,0,'基本图形').attr(h2Attr).attr({
@@ -146,6 +161,83 @@
                 'fill':'#a00',
                 'transform':'matrix(1,0,0,1,120,600)'
             })
+        },
+          //
+        '5':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'基本属性').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ stroke & fill').attr(h2Attr);
+            var li1 = svg.text(80,200,'stroke,stroke-width,stroke-opacity,fill,fill-opacity').attr({
+                'font-size':20,
+                'fill':'#a00'
+            });
+             var c1 = svg.circle(0,0,50).attr({
+                stroke:'red',
+                'stroke-width':1,
+                'fill':'none',
+                transform:'matrix(1,0,0,1,50,50)'
+             })
+              var c2 = svg.circle(0,0,50).attr({
+                stroke:'blue',
+                'stroke-width':3,
+                'fill':'none',
+                 transform:'matrix(1,0,0,1,200,50)'
+             })
+            var c3 = svg.circle(0,0,50).attr({
+                stroke:'purple',
+                'stroke-width':2,
+                'stroke-opacity':.1,
+                'fill':'none',
+                transform:'matrix(1,0,0,1,350,50)'
+             })
+            var c4 = svg.circle(0,0,50).attr({
+                stroke:'none',
+                'fill':'purple',
+                'fill-opacity':'.5',
+                transform:'matrix(1,0,0,1,480,50)'
+             })
+              _self.circle = svg.g(bgGridding(600,150),c1,c2,c3,c4).attr({
+                  'transform':'matrix(1,0,0,1,80,240)'
+             })
+            var li2 = svg.text(80,200,'stroke,stroke-width,stroke-opacity,fill,fill-opacity').attr({
+                'font-size':20,
+                'fill':'#a00'
+            });
+             var li2 = svg.text(80,420,'► stroke-linecap').attr({
+                'font-size':20,
+                'fill':'#a00'
+            });
+             var  line1 = svg.line(0,0,280,0).attr({
+                'stroke':"red",
+                'stroke-width':5,
+                'stroke-linecap':'butt',
+             });
+              var  line2 = svg.line(0,20,280,20).attr({
+                'stroke':'green',
+                'stroke-width':5,
+                'stroke-linecap':'square',
+             });
+             var  line3 = svg.line(0,40,280,40).attr({
+                'stroke':"blue",
+                'stroke-width':5,
+                'stroke-linecap':'round',
+             });
+             _self.linecap = svg.g(bgGridding(300,50),line1,line2,line3).attr({
+                  'transform':'matrix(1,0,0,1,80,450)'
+             })
+             var li3 = svg.text(80,540,'► stroke-dasharray + stroke-dashoffset').attr({
+                'font-size':20,
+                'fill':'#a00'
+            });
+             var dash1 = svg.path('M 0  20 L 300 20').attr({
+                'stroke':"blue",
+                'stroke-width':2,
+                'stroke-dasharray': '20 10',
+                'stroke-dashoffset': '0'
+             });
+             _self.dasharray = svg.g(bgGridding(300,50),dash1).attr({
+                  'transform':'matrix(1.5,0,0,1.5,80,560)'
+             })
         },
         // line
         '6':function(){
@@ -1159,7 +1251,7 @@
             maskDiv.id = 'mask'
 
             var div1 = document.createElement('div');
-            div1.className = 'mask_code';
+            div1.className = 'mask_code code ';
             // div1.innerHTML =
             var html1 = '<radialGradient cx="0.5" cy="0.5" r="0.5" id="Si43zqftae">\n\
     <stop offset="70%" stop-color="#ffffff"></stop>\n\
@@ -1192,10 +1284,10 @@
             fun.clear();
         },
         '2': function(){
-            
+            fun.clear();
         },
         '3': function(){
-            fun.clear(2);
+            fun.clear();
         },
         '4': function(){
             fun.clear();
