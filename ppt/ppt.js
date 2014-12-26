@@ -1,7 +1,6 @@
 (function(window){
     var WIDTH = 1024, HEIGHT = 768, FRAME = window.location.search.split("?")[1] || 1;
     var svg = Snap('#screen');
-    var m = new Snap.Matrix();
     // console.log(container)
     var shape = {};
     // function
@@ -167,7 +166,7 @@
             var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'基本属性').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ stroke & fill').attr(h2Attr);
-            var li1 = svg.text(80,200,'stroke,stroke-width,stroke-opacity,fill,fill-opacity').attr({
+            _self.li1 = svg.text(80,200,'► stroke,stroke-width,stroke-opacity,fill,fill-opacity').attr({
                 'font-size':20,
                 'fill':'#a00'
             });
@@ -195,49 +194,74 @@
                 'fill':'purple',
                 'fill-opacity':'.5',
                 transform:'matrix(1,0,0,1,480,50)'
-             })
-              _self.circle = svg.g(bgGridding(600,150),c1,c2,c3,c4).attr({
+            })
+            _self.circle = svg.g(bgGridding(600,150),c1,c2,c3,c4).attr({
                   'transform':'matrix(1,0,0,1,80,240)'
-             })
-            var li2 = svg.text(80,200,'stroke,stroke-width,stroke-opacity,fill,fill-opacity').attr({
+            })
+            // _self.li1 = svg.text(80,200,'stroke,stroke-width,stroke-opacity,fill,fill-opacity').attr({
+            //     'font-size':20,
+            //     'fill':'#a00'
+            // });
+            _self.li2 = svg.text(80,420,'► stroke-linecap').attr({
                 'font-size':20,
                 'fill':'#a00'
             });
-             var li2 = svg.text(80,420,'► stroke-linecap').attr({
-                'font-size':20,
-                'fill':'#a00'
-            });
-             var  line1 = svg.line(0,0,280,0).attr({
+            var  line1 = svg.line(0,0,280,0).attr({
                 'stroke':"red",
                 'stroke-width':5,
                 'stroke-linecap':'butt',
-             });
-              var  line2 = svg.line(0,20,280,20).attr({
+            });
+             var  line2 = svg.line(0,20,280,20).attr({
                 'stroke':'green',
                 'stroke-width':5,
                 'stroke-linecap':'square',
-             });
-             var  line3 = svg.line(0,40,280,40).attr({
+            });
+            var  line3 = svg.line(0,40,280,40).attr({
                 'stroke':"blue",
                 'stroke-width':5,
                 'stroke-linecap':'round',
-             });
-             _self.linecap = svg.g(bgGridding(300,50),line1,line2,line3).attr({
+            });
+            _self.linecap = svg.g(bgGridding(300,50),line1,line2,line3).attr({
                   'transform':'matrix(1,0,0,1,80,450)'
-             })
-             var li3 = svg.text(80,540,'► stroke-dasharray + stroke-dashoffset').attr({
+            })
+            _self.li3 = svg.text(80,540,'► stroke-dasharray + stroke-dashoffset').attr({
                 'font-size':20,
                 'fill':'#a00'
             });
-             var dash1 = svg.path('M 0  20 L 300 20').attr({
-                'stroke':"blue",
+            var dash1 = svg.line(0,20,300,20.5).attr({
+                'stroke':"l(0,1,1,1)rgb(255,0,0)-rgb(0,255,0)-rgb(0,0,255)",
                 'stroke-width':2,
                 'stroke-dasharray': '20 10',
                 'stroke-dashoffset': '0'
-             });
-             _self.dasharray = svg.g(bgGridding(300,50),dash1).attr({
+            });
+            var origin = dash1.attr('stroke-dashoffset').match(/\d/)[0];
+            _self.dasharray = svg.g(bgGridding(300,50),dash1).attr({
                   'transform':'matrix(1.5,0,0,1.5,80,560)'
-             })
+            })
+            _self.btn1 = svg.text(0,0,'dashoffset+1').attr(liAttr).attr({
+                'fill':'gray',
+                'transform':'matrix(1,0,0,1,80,680)',
+                'cursor':'pointer'
+            }).mouseover(function(){
+                origin = parseInt(origin) + 10;
+                origin = parseInt(origin) + 10;
+                dash1.attr({
+                    'stroke-dashoffset': origin
+                })               
+            })
+            //coffee
+            _self.coffee = svg.image('./img/coffee.png',700,90,200,300).click(function(){
+                _self._path.animate({
+                    'stroke-dashoffset':0
+                },1000)
+            });
+            _self._path = svg.path('M 204.81778,1.1716455 C 211.95158,110.55622 -39.694719,79.843869 60.485255,206.75788 120.51443,285.1377 -54.738229,357.78996 34.122001,399.92053').attr({
+                fill:'none',
+                'stroke':'purple',
+                'transform':"matrix(1.3,0,0,.8,600,400)",
+                'stroke-dasharray':'527 527',
+                'stroke-dashoffset':'527'
+            })
         },
         // line
         '6':function(){
@@ -1268,14 +1292,131 @@
             var _self = shape[FRAME] = {};
             _self.title = svg.text(0,0,'变形').attr(titleAttr);
             _self.h2 = svg.text(50,150,'▪ transform').attr(h2Attr);
-
+            //缩放
             var rect1 = svg.rect(0,0,200,120).attr({
-                'fill':'gray'
+                'fill':'red',
             }).hover(function(){
+                var m = new Snap.Matrix();
                 this.transform(m.scale(1.2, 1.2,100,60))
             })
-            _self.rect1 = svg.g(rect).attr({
+            var scale = svg.text(0,180,'scale 缩放').attr(liAttr);
+            _self.rect1 = svg.g(bgGridding(300,150),rect1,scale).attr({
                 transform:'matrix(1,0,0,1,100,200)'
+            })
+            //旋转
+            var rect2 = svg.rect(0,0,200,120).attr({
+                'fill':'green',
+            }).hover(function(){
+                var m = new Snap.Matrix();
+                this.transform(m.rotate(60,100,60))
+            })
+            var rotate = svg.text(0,180,'rotate 旋转').attr(liAttr);
+            _self.rect2 = svg.g(bgGridding(300,150),rect2,rotate).attr({
+                transform:'matrix(1,0,0,1,600,200)'
+            })
+            //移动
+            var rect3 = svg.rect(0,0,200,120).attr({
+                'fill':'blue',
+            }).hover(function(){
+                var m = new Snap.Matrix();
+                this.transform(m.translate(100,50))
+            })
+            var translate = svg.text(0,180,'translate 移动').attr(liAttr);
+            _self.rect3 = svg.g(bgGridding(300,150),rect3,translate).attr({
+                transform:'matrix(1,0,0,1,100,500)'
+            })
+            //倾斜
+            var rect4 = svg.rect(0,0,200,120).attr({
+                'fill':'yellow',
+            }).hover(function(){
+                var m = new Snap.Matrix();
+                this.attr('transform','matrix(1,-.12,0,1,0,0)')
+            })
+            var skew = svg.text(0,180,'skew 倾斜').attr(liAttr);
+            _self.rect4 = svg.g(bgGridding(300,150),rect4,skew).attr({
+                transform:'matrix(1,0,0,1,600,500)'
+            })
+        },
+        //animate
+        '25':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'动画').attr(titleAttr).attr('y',-25).animate({
+                y:80
+            },500,mina.bounce).click(function(){
+                oCar.attr('opacity',1)
+            })
+            _self.h2 = svg.text(50,150,'▪ animate').attr(h2Attr);
+
+            //旋转
+            var rect1 = svg.rect(0,0,200,120).attr({
+                'fill':'purple',
+            }).hover(function(){
+                this.animate({
+                    'transform':'rotate(870,100,60) scale(1.5,1.5,100,60)'
+                },1000)
+             }            
+            )
+            _self.rect1 = svg.g(bgGridding(300,150),rect1).attr({
+                transform:'matrix(1,0,0,1,100,200)'
+            })
+           
+            
+            // path
+            var motion_pah = 'M 0.77736539,283.81539 C 36.820214,203.65902 15.95939,106.88011 67.021498,32.113291 89.634458,-8.5319867 155.06122,-14.80713 180.74025,25.808581 c 17.3248,34.77157 17.03552,75.435369 23.33862,113.273299 6.30195,32.99062 11.71071,75.84102 45.67688,91.66747 47.24346,18.20825 91.40718,-14.78945 134.93297,-28.24473 37.93516,-10.08892 70.34574,17.60339 104.02649,29.07363 20.71322,2.87761 52.12426,1.08613 72.75542,2.33867 L 650 230';
+            var motion_arr = {
+                'path':motion_pah,
+                'begin':'0s',
+                'dur':'8s',
+                'repeatCount':'indefinite',
+
+                'rotate':'auto',
+            }
+            _self.path1 = svg.path(motion_pah).attr({
+                fill:'none',
+                'stroke':'purple',
+                transform:'matrix(1,0,0,1,300,400)'
+            })
+            //car
+            var car = svg.path('m 62.870536,12.352679 0,60 -57.1562503,0 0,65.718751 18.0937503,0 c -0.70251,2.74059 -1.09375,5.60285 -1.09375,8.5625 0,19.01 15.4275,34.4375 34.4375,34.4375 19.01,0 34.40625,-15.4275 34.40625,-34.4375 0,-2.95974 -0.3912,-5.82184 -1.09375,-8.5625 l 42.781254,0 c -1.25948,3.57744 -1.9375,7.42933 -1.9375,11.4375 0,19.01 15.39625,34.40625 34.40625,34.40625 19.01,0 34.40625,-15.39625 34.40625,-34.40625 0,-4.00817 -0.67802,-7.86006 -1.9375,-11.4375 l 21.8125,0 0,-65.718751 -45.71875,0 0,-60 -111.406254,0 z').attr({
+                fill:'blue',
+                transform:'matrix(.4,0,0,.4,0,-40)'
+            })
+
+            var svgNS = 'http://www.w3.org/2000/svg';           
+            function createTag(tag,objAttr){    
+                var oTag = document.createElementNS(svgNS , tag);   
+                for(var attr in objAttr){
+                    oTag.setAttribute(attr , objAttr[attr]);
+                }   
+                return oTag;    
+            }
+           
+            var motion_pah_obj = createTag('animateMotion',motion_arr);
+            car.node.appendChild(motion_pah_obj);
+            _self.oCar =  svg.g(car).attr({
+                transform:'matrix(1,0,0,1,300,400)',
+                'opacity':0
+            });
+        },
+        //snap.svg.js && inkscape
+        '26':function(){
+            var _self = shape[FRAME] = {};
+            _self.title = svg.text(0,0,'snap.svg.js && inkscape').attr(titleAttr);
+            _self.h2 = svg.text(50,150,'▪ snap.svg.js').attr(h2Attr);
+            _self._img = svg.image('./img/snap.svg.png',100,220,62,100);
+            _self.text1 = svg.text(80,360,'Snap.svg是一个强大且直观的SVG动画内容操纵API，能够帮助开发人员创建带有SVG功能的网页，并支持屏蔽、裁剪、全梯度和组别等功能。')
+            _self.h21 = svg.text(50,450,'▪ inkscape').attr(h2Attr);
+            _self._img2 = svg.image('./img/inkscape.png',100,480,100,100);
+            _self.text2 = svg.text(80,640,'Inkscape是一个开放原始码的向量绘图软件');
+        },
+        //end
+        '27':function(){
+            svg.rect(0,0,1024,768).attr({
+                fill:'r(.5,.5,.5)#ccc-#fff'
+            })
+            svg.text(512,374,'END').attr({
+                'font-size':100,
+                'text-anchor':'middle'
             })
         }
 
@@ -1363,6 +1504,15 @@
         '23':function(){
             fun.clear();
             document.querySelector('#mask').remove();
+        },
+        '24':function(){
+            fun.clear();
+        },
+        '25':function(){
+            fun.clear();
+        },
+        '26':function(){
+            fun.clear();
         }
     }
     //remove
